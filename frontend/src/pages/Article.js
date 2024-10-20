@@ -1,25 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// src/pages/Article.js
 
-const Article = () => {
-  const { id } = useParams();
-  const [article, setArticle] = useState(null);
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+function Article() {
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/articles/${id}`)
-      .then(response => setArticle(response.data))
-      .catch(error => console.error('Error fetching article:', error));
-  }, [id]);
-
-  if (!article) return <p>Loading...</p>;
+    // 从后端获取所有文章
+    fetch('http://localhost:5000/api/articles')
+      .then((response) => response.json())
+      .then((data) => setArticles(data))
+      .catch((error) => console.error('Error fetching articles:', error));
+  }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>{article.title}</h1>
-      <p>{article.content}</p>
+    <div>
+      <h1>Articles</h1>
+      {articles.length > 0 ? (
+        articles.map((article) => (
+          <div key={article._id}>
+            <h2>
+              <Link to={`/articles/${article._id}`}>{article.title}</Link>
+            </h2>
+            <p>{article.content.substring(0, 100)}...</p> {/* 文章摘要 */}
+            <p><strong>Author:</strong> {article.author}</p>
+          </div>
+        ))
+      ) : (
+        <p>No articles found.</p>
+      )}
     </div>
   );
-};
+}
 
 export default Article;

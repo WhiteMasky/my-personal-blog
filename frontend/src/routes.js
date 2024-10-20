@@ -1,15 +1,19 @@
+// src/routes.js
+
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Article from './pages/Article';
+import ArticleDetail from './pages/ArticleDetail';  // 引入文章详情组件
 
-const Routes = () => {
+function AppRoutes() {
   return (
-    <Router>
-      <Route exact path="/" component={Home} />
-      <Route path="/article/:id" component={Article} />
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/articles" element={<Article />} />
+      <Route path="/articles/:id" element={<ArticleDetail />} />  {/* 动态路由 */}
+    </Routes>
   );
-};
+}
 
-export default Routes;
+export default AppRoutes;

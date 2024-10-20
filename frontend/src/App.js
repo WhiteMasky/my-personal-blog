@@ -1,35 +1,15 @@
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
+// src/App.js
 
 import React from 'react';
-import Routes from './routes';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes';  // 引入路由配置
 
 function App() {
-  return <Routes />;
+  return (
+    <Router>
+      <AppRoutes />  {/* 使用路由配置 */}
+    </Router>
+  );
 }
 
 export default App;
